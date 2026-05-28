@@ -35,12 +35,14 @@
             @endif
 
             @auth
-                <button class="mt-3 font-medium text-pink-500 hover:text-pink-700" id="wishlist-btn" data-cat-id="{{ $cat->cat_id }}">
-                    @if(auth()->user()->wishlistItems()->where('cat_id', $cat->cat_id)->exists())
-                        Đã thích
-                    @else
-                        Thêm vào yêu thích
-                    @endif
+                <button type="button" class="w-full rounded-xl border border-pink-500 bg-white px-6 py-2 font-medium text-pink-500 hover:bg-pink-50 mt-3 wishlist-toggle" id="wishlist-btn" data-cat-id="{{ $cat->cat_id }}" data-url="{{ route('wishlist.toggle', $cat) }}" aria-pressed="{{ auth()->user()->wishlistItems()->where('cat_id', $cat->cat_id)->exists() ? 'true' : 'false' }}">
+                    <span class="wishlist-label">
+                        @if(auth()->user()->wishlistItems()->where('cat_id', $cat->cat_id)->exists())
+                            Đã thích
+                        @else
+                            Thêm vào yêu thích
+                        @endif
+                    </span>
                 </button>
             @endauth
         </div>
